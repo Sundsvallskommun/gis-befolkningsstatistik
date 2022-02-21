@@ -1,0 +1,96 @@
+body {
+    background: white;
+    font-family: 'Raleway';
+}
+
+h3 {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    padding: 0;
+    width: 10%;
+}
+/*Omgivande box*/
+.container {
+    max-width: 1400px;
+    background: rgb(247, 247, 247);
+}
+
+/*Rubrikbox*/
+.header {
+    display: grid;
+    justify-content: center;
+    background-color: rgb(238, 238, 238);
+    font-family: 'Raleway';
+    text-align: center;
+}
+
+/*Rubrikbox*/
+.diagrams {
+    display: grid;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    font-family: 'Raleway';
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+/*RutnÃ¤t med tvÃ¥ spalter*/
+.grid-container-two {
+    display: grid;
+    justify-content: center;
+    background-color: rgb(247, 247, 247);
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+/*Block (som rutnÃ¤t fast en rad)*/
+.grid-container-one {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: rgb(247, 247, 247);
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+/*Celler i rutnÃ¤t)*/
+.grid-item {
+    background-color: white;
+    border: none;
+    margin: 20px;
+    text-align: center;
+}
+
+/*Bilder inuti celler*/
+img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+#alder {
+    margin-top: 60px;
+}
+
+#test {
+    margin-bottom: 60px;
+}
+
+/*Sidfot*/
+.footer {
+    background-color: rgb(238, 238, 238);
+    height: 60px;
+}
