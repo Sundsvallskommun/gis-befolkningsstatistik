@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 
 const url = new URL(window.location.href);
 const nyko = url.searchParams.get('nyko');
-const year = url.searchParams.get('year');
-const interval = url.searchParams.get('interval');
+const uttagsdatum = url.searchParams.get('uttagsdatum');
+const intervall = url.searchParams.get('intervall');
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,11 +18,11 @@ ReactDOM.render(
         <header className="header">
             <h1>Demografisk statistik över Nyckelkodsområde: {nyko} (Nivå {nyko.length})</h1>
             <hr/>
-            <h3><b>Statistik från Sundsvalls kommuns metadata-katalog</b></h3>
+            <h3><b>Statistik från Sundsvalls kommuns metakatalog</b></h3>
             <h3><b>Kontakt: geodata@sundsvall.se</b></h3>
         </header>
         </div>
-          <App nyko={nyko} year={year} interval={interval} />
+          <App nyko={nyko} uttagsdatum={uttagsdatum} intervall={intervall} />
         <div className="footer"></div>
       </div>
     ) : (

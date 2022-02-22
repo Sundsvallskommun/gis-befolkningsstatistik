@@ -52,3 +52,9 @@
     font-weight: bold;
     line-height: 1;
 }
+
+.warning {
+  color: rgba(255, 0, 0, 1.0);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
