@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,9 +13,6 @@ import {
 } from 'chart.js';
 import { Bar, Pie  } from "react-chartjs-2";
 import './App.css';
-let nyko = '';
-let year = '';
-let interval = '';
 
 ChartJS.register(
   CategoryScale,
@@ -35,30 +32,62 @@ class App extends React.Component {
   // Constructor
   constructor(props) {
     super(props);
-    nyko = props.nyko;
-    year = props.year;
-    interval = props.interval;
     this.state = {
         items: [],
-        DataisLoaded: false
+        DataisLoaded: false,
+        nyko: this.props.nyko,
+        uttagsdatum: this.props.uttagsdatum ? this.props.uttagsdatum : '',
+        intervall: this.props.intervall ? this.props.intervall : ''
     };
   }
 
   // ComponentDidMount is used to
   // execute the code
   componentDidMount() {
-    fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+nyko+"&year="+year+"&interval="+interval)
+    fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
         .then((res) => res.json())
         .then((json) => {
             this.setState({
                 items: json,
-                DataisLoaded: true
+                DataisLoaded: true,
+                nyko: this.state.nyko,
+                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
+                intervall: this.state.intervall ? this.state.intervall : ''
             });
         })
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.uttagsdatum !== prevState.uttagsdatum) {
+      fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
+          .then((res) => res.json())
+          .then((json) => {
+            this.setState({
+                items: json,
+                DataisLoaded: true,
+                nyko: this.state.nyko,
+                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
+                intervall: this.state.intervall ? this.state.intervall : ''
+            });
+          })
+    }
+    if (this.state.intervall !== prevState.intervall) {
+      fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
+          .then((res) => res.json())
+          .then((json) => {
+            this.setState({
+                items: json,
+                DataisLoaded: true,
+                nyko: this.state.nyko,
+                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
+                intervall: this.state.intervall ? this.state.intervall : ''
+            });
+          })
+    }
   }
   render() {
   const labels = [];
   const values = [];
+  const dates = [];
   const { DataisLoaded, items } = this.state;
   if (!DataisLoaded) return <div>
     <h1> Hämtar data, var god vänta.... </h1> </div> ;
@@ -75,6 +104,10 @@ class App extends React.Component {
         labels.push(item.Label);
         values.push(item.Antal);
       });
+      items.outtakeDate.forEach((date, i) => {
+        dates.push({ id: i, text: date.Uttagsdatum });
+      });
+      const intervals = [{id:0, text:'Skola'},{id:1, text:'5ar'}]
       const dataInterval = {
         labels: labels,
         datasets: [{
@@ -82,6 +115,10 @@ class App extends React.Component {
           data: values
         }]
       };
+      let intervalToSmall = '';
+      if (dataInterval.labels.length === 0) {
+        intervalToSmall = 'OBS! Åldersgrupper för små för att visas!';
+      }
       const dataPie = {
         labels: [
           'Män',
@@ -99,8 +136,38 @@ class App extends React.Component {
       };
       return (
         <div className = "App">
+        <div className="selects">
+          <h3>Ändra uttagsdatum och åldersgruppsintervall</h3>
+          <label>Välj uttagsdatum</label>&nbsp;
+          <select className="form-control" value={this.state.uttagsdatum} onChange={event => { this.setState({items: [], DataisLoaded: false, nyko: this.state.nyko, uttagsdatum: event.target.value, intervall: this.state.intervall}); }}>
+        {
+            dates.map(outtakeDate => {
+                return (
+                    <option key={outtakeDate.id} value={outtakeDate.text}>
+                        {outtakeDate.text}
+                    </option>
+                )
+            })
+        }
+          </select>
+          <br/>
+          <label>Välj åldersgruppsintervall</label>&nbsp;
+          <select className="form-control" value={this.state.intervall} onChange={event => { this.setState({items: [], DataisLoaded: false, nyko: this.state.nyko, uttagsdatum: this.state.uttagsdatum, intervall: event.target.value}); }}>
+          {
+              intervals.map(interval => {
+                  return (
+                      <option key={interval.id} value={interval.text}>
+                          {interval.text}
+                      </option>
+                  )
+              })
+          }
+          </select>
+        </div>
         <div className="diagrams">
+          <h1>Befolkning totalt antal: {(parseInt(items.women) + parseInt(items.men))}</h1>
           <h1>Befolkning efter ålder</h1>
+          <p className="warning">{intervalToSmall}</p>
           <div style={{ position: "relative", width: 900, height: 450 }}>
               {
               <Bar
