@@ -28,6 +28,12 @@ ChartJS.register(
 const conf = require('./conf/config');
 const configOptions = Object.assign({}, conf['befolkningsStatistik']);
 
+const url = new URL(window.location.href);
+const nyko = url.searchParams.get('nyko');
+const uttagsdatum = url.searchParams.get('uttagsdatum');
+const intervall = url.searchParams.get('intervall');
+let startMsg = 'Hämtar data, var god vänta....';
+
 class App extends React.Component {
   // Constructor
   constructor(props) {
@@ -35,26 +41,37 @@ class App extends React.Component {
     this.state = {
         items: [],
         DataisLoaded: false,
-        nyko: this.props.nyko,
-        uttagsdatum: this.props.uttagsdatum ? this.props.uttagsdatum : '',
-        intervall: this.props.intervall ? this.props.intervall : ''
+        nyko: nyko,
+        uttagsdatum: uttagsdatum ? uttagsdatum : '',
+        intervall: intervall ? intervall : ''
     };
   }
 
   // ComponentDidMount is used to
   // execute the code
   componentDidMount() {
-    fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
-        .then((res) => res.json())
-        .then((json) => {
-            this.setState({
-                items: json,
-                DataisLoaded: true,
-                nyko: this.state.nyko,
-                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
-                intervall: this.state.intervall ? this.state.intervall : ''
-            });
-        })
+    if (!isNaN(parseInt(nyko))) {
+      fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
+          .then((res) => res.json())
+          .then((json) => {
+              this.setState({
+                  items: json,
+                  DataisLoaded: true,
+                  nyko: this.state.nyko,
+                  uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
+                  intervall: this.state.intervall ? this.state.intervall : ''
+              });
+          })
+    } else {
+      startMsg = 'Inget NYKO angivet....';
+      this.setState({
+          items: [],
+          DataisLoaded: false,
+          nyko: this.state.nyko,
+          uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
+          intervall: this.state.intervall ? this.state.intervall : ''
+      });
+    }
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.state.uttagsdatum !== prevState.uttagsdatum) {
@@ -89,15 +106,21 @@ class App extends React.Component {
   const values = [];
   const dates = [];
   const { DataisLoaded, items } = this.state;
-  if (!DataisLoaded) return <div>
-    <h1> Hämtar data, var god vänta.... </h1> </div> ;
+  if (!DataisLoaded) return (
+    <center>
+      <div>
+        <h1> {startMsg} </h1>
+      </div>
+    </center>);
     if (typeof items.error !== 'undefined') {
       return (
-        <div className = "App">
-          <div className="diagrams">
-            <h1>{items.error}</h1>
+        <center>
+          <div className = "App">
+            <div className="diagrams">
+              <h1>{items.error}</h1>
+            </div>
           </div>
-        </div>
+        </center>
       );
     } else {
       items.ageByInterval.forEach((item) => {
@@ -135,7 +158,18 @@ class App extends React.Component {
         }]
       };
       return (
-        <div className = "App">
+        <center>
+          {nyko !== null ? (
+            <div className="container">
+              <div className="header">
+              <header className="header">
+                  <h1>Demografisk statistik över Nyckelkodsområde: {nyko} (Nivå {nyko.length})</h1>
+                  <hr/>
+                  <h3><b>Statistik från Sundsvalls kommuns metakatalog</b></h3>
+                  <h3><b>Kontakt: geodata@sundsvall.se</b></h3>
+              </header>
+              </div>
+              <div className = "App">
         <div className="selects">
           <h3>Ändra uttagsdatum och åldersgruppsintervall</h3>
           <label>Välj uttagsdatum</label>&nbsp;
@@ -208,6 +242,19 @@ class App extends React.Component {
           <div className="lblMen">Män {((parseInt(items.men)/(parseInt(items.women) + parseInt(items.men)))*100).toFixed(1)} %</div>
           </div>
           </div>
+          <div className="footer"></div>
+        </div>
+      ) : (
+        <div className="container">
+          <div className="header">
+          <header className="header">
+              <h1>Inget NYKO!</h1>
+          </header>
+          </div>
+          <div className="footer"></div>
+        </div>
+      )}
+    </center>
       );
     }
   }
