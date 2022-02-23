@@ -11,9 +11,9 @@ import reportWebVitals from './reportWebVitals';
 
 const rootElement = document.getElementById("root");
 render(
-  <BrowserRouter>
+  <BrowserRouter basename="/befolkningsstatistik">
     <Routes>
-      <Route path="befolkningsstatistik" element={<App />} />
+      <Route path="/" element={<App />} />
     </Routes>
   </BrowserRouter>,
   rootElement
