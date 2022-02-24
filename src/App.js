@@ -82,7 +82,7 @@ class App extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.state.uttagsdatum !== prevState.uttagsdatum) {
-      fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
+      fetch(configOptions.base_url+configOptions.nyko_api+"nyko?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
           .then((res) => res.json())
           .then((json) => {
             this.setState({
@@ -95,7 +95,7 @@ class App extends React.Component {
           })
     }
     if (this.state.intervall !== prevState.intervall) {
-      fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
+      fetch(configOptions.base_url+configOptions.nyko_api+"nyko?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
           .then((res) => res.json())
           .then((json) => {
             this.setState({
