@@ -33,6 +33,7 @@ const nyko = url.searchParams.get('nyko');
 const uttagsdatum = url.searchParams.get('uttagsdatum');
 const intervall = url.searchParams.get('intervall');
 let startMsg = 'Hämtar data, var god vänta....';
+let jsonUttagsdatum = [];
 
 class App extends React.Component {
   // Constructor
@@ -51,7 +52,12 @@ class App extends React.Component {
   // execute the code
   componentDidMount() {
     if (!isNaN(parseInt(nyko))) {
-      fetch(configOptions.base_url+configOptions.nyko_api+"?nyko="+this.state.nyko+"&uttagsdatum="+this.state.uttagsdatum+"&intervall="+this.state.intervall)
+      fetch(configOptions.base_url+configOptions.nyko_api+"nyko-uttagsdatum")
+      .then((res) => res.json())
+      .then((json) => {
+        jsonUttagsdatum = json;
+        const uttag = this.state.uttagsdatum ? this.state.uttagsdatum : json[0].Uttagsdatum;
+        fetch(configOptions.base_url+configOptions.nyko_api+"nyko?nyko="+this.state.nyko+"&uttagsdatum="+uttag+"&intervall="+this.state.intervall)
           .then((res) => res.json())
           .then((json) => {
               this.setState({
@@ -62,6 +68,7 @@ class App extends React.Component {
                   intervall: this.state.intervall ? this.state.intervall : ''
               });
           })
+      })
     } else {
       startMsg = 'Inget NYKO angivet....';
       this.setState({
@@ -127,10 +134,10 @@ class App extends React.Component {
         labels.push(item.Label);
         values.push(item.Antal);
       });
-      items.outtakeDate.forEach((date, i) => {
+      jsonUttagsdatum.forEach((date, i) => {
         dates.push({ id: i, text: date.Uttagsdatum });
       });
-      const intervals = [{id:0, text:'Skola'},{id:1, text:'5ar'}]
+      const intervals = [{id:0, text:'5år', value:'5ar'},{id:1, text:'Skola', value:'Skola'}]
       const dataInterval = {
         labels: labels,
         datasets: [{
@@ -165,7 +172,7 @@ class App extends React.Component {
               <header className="header">
                   <h1>Demografisk statistik över Nyckelkodsområde: {nyko} (Nivå {nyko.length})</h1>
                   <hr/>
-                  <h3><b>Statistik från Sundsvalls kommuns metakatalog</b></h3>
+                  <h3><b>Statistik från Sundsvalls kommun</b></h3>
                   <h3><b>Kontakt: geodata@sundsvall.se</b></h3>
               </header>
               </div>
@@ -190,7 +197,7 @@ class App extends React.Component {
           {
               intervals.map(interval => {
                   return (
-                      <option key={interval.id} value={interval.text}>
+                      <option key={interval.id} value={interval.value}>
                           {interval.text}
                       </option>
                   )
