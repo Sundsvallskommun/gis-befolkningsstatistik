@@ -113,6 +113,10 @@ class App extends React.Component {
   const values = [];
   const dates = [];
   const { DataisLoaded, items } = this.state;
+  const intervals = [{id:0, text:'5år', value:'5ar'},{id:1, text:'Skola', value:'Skola'}]
+  jsonUttagsdatum.forEach((date, i) => {
+    dates.push({ id: i, text: date.Uttagsdatum });
+  });
   if (!DataisLoaded) return (
     <center>
       <div>
@@ -125,7 +129,38 @@ class App extends React.Component {
           <div className = "App">
             <div className="diagrams">
               <h1>{items.error}</h1>
+              <hr/>
+              <h3><b>Statistik från Sundsvalls kommun</b></h3>
+              <h3><b>Kontakt: geodata@sundsvall.se</b></h3>
             </div>
+          </div>
+          <div className="selects">
+            <h3>Ändra uttagsdatum och åldersgruppsintervall</h3>
+            <label>Välj uttagsdatum</label>&nbsp;
+            <select className="form-control" value={this.state.uttagsdatum} onChange={event => { this.setState({items: [], DataisLoaded: false, nyko: this.state.nyko, uttagsdatum: event.target.value, intervall: this.state.intervall}); }}>
+          {
+              dates.map(outtakeDate => {
+                  return (
+                      <option key={outtakeDate.id} value={outtakeDate.text}>
+                          {outtakeDate.text}
+                      </option>
+                  )
+              })
+          }
+            </select>
+            <br/>
+            <label>Välj åldersgruppsintervall</label>&nbsp;
+            <select className="form-control" value={this.state.intervall} onChange={event => { this.setState({items: [], DataisLoaded: false, nyko: this.state.nyko, uttagsdatum: this.state.uttagsdatum, intervall: event.target.value}); }}>
+            {
+                intervals.map(interval => {
+                    return (
+                        <option key={interval.id} value={interval.value}>
+                            {interval.text}
+                        </option>
+                    )
+                })
+            }
+            </select>
           </div>
         </center>
       );
@@ -134,10 +169,6 @@ class App extends React.Component {
         labels.push(item.Label);
         values.push(item.Antal);
       });
-      jsonUttagsdatum.forEach((date, i) => {
-        dates.push({ id: i, text: date.Uttagsdatum });
-      });
-      const intervals = [{id:0, text:'5år', value:'5ar'},{id:1, text:'Skola', value:'Skola'}]
       const dataInterval = {
         labels: labels,
         datasets: [{
