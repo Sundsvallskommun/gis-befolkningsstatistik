@@ -623,7 +623,23 @@ class App extends React.Component {
                   },
                   responsive: true,
                   maintainAspectRatio: true,
-                  legend: { display: false }
+                  legend: { display: false },
+                  scales: {
+                    x: {
+                      display: true,
+                      title: {
+                        display: true,
+                        text: 'Åldersintervall'
+                      }
+                    },
+                    y: {
+                      display: true,
+                      title: {
+                        display: true,
+                        text: 'Antal personer'
+                      }
+                    }
+                  }
                 }}
                 data={dataInterval}
               />
@@ -665,7 +681,23 @@ class App extends React.Component {
                   },
                   responsive: true,
                   maintainAspectRatio: true,
-                  legend: { display: false }
+                  legend: { display: false },
+                  scales: {
+                    x: {
+                      display: true,
+                      title: {
+                        display: true,
+                        text: 'År'
+                      }
+                    },
+                    y: {
+                      display: true,
+                      title: {
+                        display: true,
+                        text: 'Procent'
+                      }
+                    }
+                  }
                 }}
                 data={dataAssistans}
               />
@@ -684,7 +716,23 @@ class App extends React.Component {
                     },
                     responsive: true,
                     maintainAspectRatio: true,
-                    legend: { display: false }
+                    legend: { display: false },
+                    scales: {
+                      x: {
+                        display: true,
+                        title: {
+                          display: true,
+                          text: 'År'
+                        }
+                      },
+                      y: {
+                        display: true,
+                        title: {
+                          display: true,
+                          text: 'Procent'
+                        }
+                      }
+                    }
                   }}
                   data={dataYoung}
                 />
@@ -703,7 +751,23 @@ class App extends React.Component {
                       },
                       responsive: true,
                       maintainAspectRatio: true,
-                      legend: { display: false }
+                      legend: { display: false },
+                      scales: {
+                        x: {
+                          display: true,
+                          title: {
+                            display: true,
+                            text: 'År'
+                          }
+                        },
+                        y: {
+                          display: true,
+                          title: {
+                            display: true,
+                            text: 'Procent'
+                          }
+                        }
+                      }
                     }}
                     data={dataOld}
                   />
@@ -722,7 +786,23 @@ class App extends React.Component {
                         },
                         responsive: true,
                         maintainAspectRatio: true,
-                        legend: { display: false }
+                        legend: { display: false },
+                        scales: {
+                          x: {
+                            display: true,
+                            title: {
+                              display: true,
+                              text: 'År'
+                            }
+                          },
+                          y: {
+                            display: true,
+                            title: {
+                              display: true,
+                              text: 'Procent'
+                            }
+                          }
+                        }
                       }}
                       data={dataNonEU}
                     />
@@ -741,7 +821,23 @@ class App extends React.Component {
                           },
                           responsive: true,
                           maintainAspectRatio: true,
-                          legend: { display: false }
+                          legend: { display: false },
+                          scales: {
+                            x: {
+                              display: true,
+                              title: {
+                                display: true,
+                                text: 'År'
+                              }
+                            },
+                            y: {
+                              display: true,
+                              title: {
+                                display: true,
+                                text: 'Procent'
+                              }
+                            }
+                          }
                         }}
                         data={dataWorking}
                       />
@@ -760,7 +856,23 @@ class App extends React.Component {
                             },
                             responsive: true,
                             maintainAspectRatio: true,
-                            legend: { display: false }
+                            legend: { display: false },
+                            scales: {
+                              x: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'År'
+                                }
+                              },
+                              y: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'Procent'
+                                }
+                              }
+                            }
                           }}
                           data={dataEducated}
                         />
@@ -779,7 +891,23 @@ class App extends React.Component {
                             },
                             responsive: true,
                             maintainAspectRatio: true,
-                            legend: { display: false }
+                            legend: { display: false },
+                            scales: {
+                              x: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'År'
+                                }
+                              },
+                              y: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'Procent'
+                                }
+                              }
+                            }
                           }}
                           data={dataUnemployed}
                         />
@@ -798,7 +926,23 @@ class App extends React.Component {
                             },
                             responsive: true,
                             maintainAspectRatio: true,
-                            legend: { display: false }
+                            legend: { display: false },
+                            scales: {
+                              x: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'År'
+                                }
+                              },
+                              y: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'Kr i tusental'
+                                }
+                              }
+                            }
                           }}
                           data={dataIncome}
                         />
@@ -817,7 +961,23 @@ class App extends React.Component {
                             },
                             responsive: true,
                             maintainAspectRatio: true,
-                            legend: { display: false }
+                            legend: { display: false },
+                            scales: {
+                              x: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'År'
+                                }
+                              },
+                              y: {
+                                display: true,
+                                title: {
+                                  display: true,
+                                  text: 'Dagar'
+                                }
+                              }
+                            }
                           }}
                           data={dataUnhealth}
                         />
