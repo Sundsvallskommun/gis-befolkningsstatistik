@@ -34,6 +34,7 @@ const uttagsdatum = url.searchParams.get('uttagsdatum');
 const intervall = url.searchParams.get('intervall');
 let startMsg = 'Hämtar data, var god vänta....';
 let jsonUttagsdatum = [];
+let uttag = '';
 
 class App extends React.Component {
   // Constructor
@@ -56,7 +57,7 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((json) => {
         jsonUttagsdatum = json;
-        const uttag = this.state.uttagsdatum ? this.state.uttagsdatum : json[0].Uttagsdatum;
+        uttag = this.state.uttagsdatum ? this.state.uttagsdatum : json[0].Uttagsdatum;
         fetch(configOptions.base_url+configOptions.nyko_api+"nyko?nyko="+this.state.nyko+"&uttagsdatum="+uttag+"&intervall="+this.state.intervall)
           .then((res) => res.json())
           .then((json) => {
@@ -64,8 +65,8 @@ class App extends React.Component {
                   items: json,
                   DataisLoaded: true,
                   nyko: this.state.nyko,
-                  uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
-                  intervall: this.state.intervall ? this.state.intervall : ''
+                  uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
+                  intervall: this.state.intervall ? this.state.intervall : uttag
               });
           })
       })
@@ -75,8 +76,8 @@ class App extends React.Component {
           items: [],
           DataisLoaded: false,
           nyko: this.state.nyko,
-          uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
-          intervall: this.state.intervall ? this.state.intervall : ''
+          uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
+          intervall: this.state.intervall ? this.state.intervall : uttag
       });
     }
   }
@@ -89,8 +90,8 @@ class App extends React.Component {
                 items: json,
                 DataisLoaded: true,
                 nyko: this.state.nyko,
-                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
-                intervall: this.state.intervall ? this.state.intervall : ''
+                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
+                intervall: this.state.intervall ? this.state.intervall : uttag
             });
           })
     }
@@ -102,8 +103,8 @@ class App extends React.Component {
                 items: json,
                 DataisLoaded: true,
                 nyko: this.state.nyko,
-                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : '',
-                intervall: this.state.intervall ? this.state.intervall : ''
+                uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
+                intervall: this.state.intervall ? this.state.intervall : uttag
             });
           })
     }
