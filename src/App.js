@@ -671,41 +671,47 @@ class App extends React.Component {
           <div className="lblMen">Män {((parseInt(items.men)/(parseInt(items.women) + parseInt(items.men)))*100).toFixed(1)} %</div>
           </div>
           </div>
-          <div className="diagrams">
-          <h1>Bistånd</h1>
-          <div style={{ position: "relative", width: 900, height: 450 }}>
-              {
-              <Line
-                options={{
-                  tooltips: {
-                    mode: "index",
-                    intersect: false
-                  },
-                  responsive: true,
-                  maintainAspectRatio: true,
-                  legend: { display: false },
-                  scales: {
-                    x: {
-                      display: true,
-                      title: {
-                        display: true,
-                        text: 'År'
-                      }
+          {items.variables.assistans.length > 0 ? (
+            <div className="diagrams">
+            <h1>Bistånd</h1>
+            <div style={{ position: "relative", width: 900, height: 450 }}>
+                {
+                <Line
+                  options={{
+                    tooltips: {
+                      mode: "index",
+                      intersect: false
                     },
-                    y: {
-                      display: true,
-                      title: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: { display: false },
+                    scales: {
+                      x: {
                         display: true,
-                        text: 'Procent'
+                        title: {
+                          display: true,
+                          text: 'År'
+                        }
+                      },
+                      y: {
+                        display: true,
+                        title: {
+                          display: true,
+                          text: 'Procent'
+                        }
                       }
                     }
-                  }
-                }}
-                data={dataAssistans}
-              />
-            }
-            </div>
-            </div>
+                  }}
+                  data={dataAssistans}
+                />
+              }
+              </div>
+              </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.young.length > 0 ? (
             <div className="diagrams">
             <h1>Befolkning 0-19</h1>
             <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -741,6 +747,11 @@ class App extends React.Component {
               }
               </div>
               </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.old.length > 0 ? (
               <div className="diagrams">
               <h1>Befolkning 65+</h1>
               <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -776,6 +787,11 @@ class App extends React.Component {
                 }
                 </div>
                 </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.nonEU.length > 0 ? (
                 <div className="diagrams">
                 <h1>Befolkning födda utanför EU</h1>
                 <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -811,6 +827,11 @@ class App extends React.Component {
                   }
                   </div>
                   </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.working.length > 0 ? (
                   <div className="diagrams">
                   <h1>Andel förvärvsarbetande</h1>
                   <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -846,6 +867,11 @@ class App extends React.Component {
                     }
                     </div>
                     </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.educated.length > 0 ? (
                     <div className="diagrams">
                     <h1>Andel med eftergymnasial utbildning</h1>
                     <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -881,6 +907,11 @@ class App extends React.Component {
                       }
                     </div>
                     </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.unemployed.length > 0 ? (
                     <div className="diagrams">
                     <h1>Andel öppet arbetslösa</h1>
                     <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -916,6 +947,11 @@ class App extends React.Component {
                       }
                     </div>
                     </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.income.length > 0 ? (
                     <div className="diagrams">
                     <h1>Inkomst</h1>
                     <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -951,6 +987,11 @@ class App extends React.Component {
                       }
                     </div>
                     </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
+          {items.variables.unhealth.length > 0 ? (
                     <div className="diagrams">
                     <h1>Ohälsotal</h1>
                     <div style={{ position: "relative", width: 900, height: 450 }}>
@@ -986,6 +1027,10 @@ class App extends React.Component {
                       }
                     </div>
                     </div>
+            ) : (
+              <div className="diagrams">
+              </div>
+            )}
           <div className="footer"></div>
         </div>
       ) : (
