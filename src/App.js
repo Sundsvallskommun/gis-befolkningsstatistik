@@ -575,7 +575,8 @@ class App extends React.Component {
             <div className="container">
               <div className="header">
               <header className="header">
-                  <h1>Demografisk statistik över Nyckelkodsområde: {nyko} (Nivå {nyko.length})</h1>
+                  <h1>Demografisk statistik över {items.name}</h1>
+                  <h2>Nyckelkodsområde: {nyko} (Nivå {nyko.length})</h2>
                   <hr/>
                   <h3><b>Statistik från Sundsvalls kommun</b></h3>
                   <h3><b>Kontakt: geodata@sundsvall.se</b></h3>
