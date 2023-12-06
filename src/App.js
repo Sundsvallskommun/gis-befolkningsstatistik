@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -66,7 +66,7 @@ class App extends React.Component {
                   DataisLoaded: true,
                   nyko: this.state.nyko,
                   uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
-                  intervall: this.state.intervall ? this.state.intervall : uttag
+                  intervall: this.state.intervall ? this.state.intervall : ''
               });
           })
       })
@@ -77,7 +77,7 @@ class App extends React.Component {
           DataisLoaded: false,
           nyko: this.state.nyko,
           uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
-          intervall: this.state.intervall ? this.state.intervall : uttag
+          intervall: this.state.intervall ? this.state.intervall : ''
       });
     }
   }
@@ -91,7 +91,7 @@ class App extends React.Component {
                 DataisLoaded: true,
                 nyko: this.state.nyko,
                 uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
-                intervall: this.state.intervall ? this.state.intervall : uttag
+                intervall: this.state.intervall ? this.state.intervall : ''
             });
           })
     }
@@ -104,7 +104,7 @@ class App extends React.Component {
                 DataisLoaded: true,
                 nyko: this.state.nyko,
                 uttagsdatum: this.state.uttagsdatum ? this.state.uttagsdatum : uttag,
-                intervall: this.state.intervall ? this.state.intervall : uttag
+                intervall: this.state.intervall ? this.state.intervall : ''
             });
           })
     }
