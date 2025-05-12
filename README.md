@@ -1,6 +1,7 @@
 # Show population statistics based on NYKO
 
 Gets statistics for specific NYKO and creates diagrams.
+![Example](./public/example.png)
 
 # Getting Started with Create React App
 
