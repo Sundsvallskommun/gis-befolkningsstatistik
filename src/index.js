@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   BrowserRouter,
   Routes,
@@ -10,13 +10,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const rootElement = document.getElementById("root");
-render(
+const root = createRoot(rootElement);
+
+root.render(
   <BrowserRouter basename="/befolkningsstatistik">
     <Routes>
       <Route path="/" element={<App />} />
     </Routes>
-  </BrowserRouter>,
-  rootElement
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
